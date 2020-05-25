@@ -1,0 +1,54 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Payments{% endblock %}
+
+{% block stylesheets %}
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+{% endblock %}
+
+{% block body %}
+    <div class='row'>
+        {% for currencie in currencies %}
+            <div class="col-3">
+                {% for currencieVal in currencie %}
+                    {{ currencieVal }}
+                {% endfor %}
+            </div>
+        {% endfor %}
+    </div>
+    <div class="container" style="width: 50%; margin:50px auto">
+        {{ form_start(form) }}
+            <div class="form-group row">
+                <div class="col-2">
+                    {{ form_label(form.amount) }}
+                </div>
+                <div class="col-10">
+                    {{ form_widget(form.amount, {"attr":{ "class":"col-12"}}) }}
+                </div>
+
+                <small class="text-danger">
+                    {{ form_errors(form.amount) }}
+                </small>
+            </div>
+
+            <div class="form-group row">
+                <div class="col-2">
+                    {{ form_label(form.wallet) }}
+                </div>
+                <div class="col-10">
+                    {{ form_widget(form.wallet, {"attr":{ "class":"col-12"}}) }}
+                </div>
+                <small class="text-danger">
+                    {{ form_errors(form.wallet) }}
+                </small>
+            </div>
+            {{ form_row(form.save, {"attr":{"class": "btn btn-primary"}}) }}
+        {{ form_end(form) }}
+
+        {% for message in app.flashes('success') %}
+                <div class="alert alert-success">
+                    {{ message }}
+                </div>
+        {% endfor %}
+    </div>
+{% endblock %}
